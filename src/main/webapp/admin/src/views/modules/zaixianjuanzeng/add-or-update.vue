@@ -478,32 +478,10 @@ export default {
     // 提交
     onSubmit() {
 
-
-
-
-
-
-
-
-
-
-
-
 	if(this.ruleForm.juanzengzhaopian!=null) {
 		this.ruleForm.juanzengzhaopian = this.ruleForm.juanzengzhaopian.replace(new RegExp(this.$base.url,"g"),"");
 	}
-
-
-
-
-
-
-
-
-
-
-
-
+  this.ruleForm.shouzengzhanghao = localStorage.getItem('adminName') && JSON.parse(localStorage.getItem('adminName'))
 
 var objcross = this.$storage.getObj('crossObj');
 

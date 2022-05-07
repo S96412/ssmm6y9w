@@ -4,16 +4,16 @@
     <div v-if="showFlag">
       <el-form :inline="true" :model="searchForm" class="form-content">
         <el-row  :gutter="20" class="slt" :style="{justifyContent:contents.searchBoxPosition=='1'?'flex-start':contents.searchBoxPosition=='2'?'center':'flex-end'}">
-                <el-form-item :label="contents.inputTitle == 1 ? '匹配状态' : ''">
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.pipeizhuangtai" placeholder="匹配状态" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.pipeizhuangtai" placeholder="匹配状态" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.pipeizhuangtai" placeholder="匹配状态" clearable></el-input>
+                <el-form-item :label="contents.inputTitle == 1 ? '标题' : ''">
+                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.biaoti" placeholder="标题" clearable></el-input>
+                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.biaoti" placeholder="标题" clearable></el-input>
+                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.biaoti" placeholder="标题" clearable></el-input>
                 </el-form-item>
-                <!-- <el-form-item :label="contents.inputTitle == 1 ? '地址' : ''">
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.dizhi" placeholder="地址" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.dizhi" placeholder="地址" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.dizhi" placeholder="地址" clearable></el-input>
-                </el-form-item> -->
+                <el-form-item :label="contents.inputTitle == 1 ? '匹配状态' : ''">
+                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.pipeizhaungtai" placeholder="匹配状态" clearable></el-input>
+                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.pipeizhaungtai" placeholder="匹配状态" clearable></el-input>
+                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.pipeizhaungtai" placeholder="匹配状态" clearable></el-input>
+                </el-form-item>
                 <!-- <el-form-item :label="contents.inputTitle == 1 ? '受赠姓名' : ''">
                   <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.shouzengxingming" placeholder="受赠姓名" clearable></el-input>
                   <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.shouzengxingming" placeholder="受赠姓名" clearable></el-input>
@@ -73,9 +73,24 @@
               type="danger"
               @click="deleteHandler()"
             >{{ contents.btnAdAllFont == 1?'删除':'' }}</el-button>
+            
 
-
-
+            <el-button
+              v-if="isAuth('xuqiuxinxi','开始匹配') && contents.btnAdAllIcon == 1 && contents.btnAdAllIconPosition == 1"
+              type="success"
+              icon="el-icon-plus"
+              @click="startMatch()"
+            >{{ contents.btnAdAllFont == 1?'开始匹配':'' }}</el-button>
+            <el-button
+              v-if="isAuth('xuqiuxinxi','开始匹配') && contents.btnAdAllIcon == 1 && contents.btnAdAllIconPosition == 2"
+              type="success"
+              @click="startMatch()"
+            >{{ contents.btnAdAllFont == 1?'开始匹配':'' }}<i class="el-icon-plus el-icon--right" /></el-button>
+            <el-button
+              v-if="isAuth('xuqiuxinxi','开始匹配') && contents.btnAdAllIcon == 0"
+              type="success"
+              @click="startMatch()"
+            >{{ contents.btnAdAllFont == 1?'开始匹配':'' }}</el-button>
 
 
           </el-form-item>
@@ -143,27 +158,43 @@
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="xuqiushuliang"
+                    prop="juanzengshuliang"
                    :header-align="contents.tableAlign"
 		    label="数量">
 		     <template slot-scope="scope">
-                       {{scope.row.xuqiushuliang}}
+                       {{scope.row.juanzengshuliang}}
                      </template>
                 </el-table-column>
-                <!-- <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
+                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
+                    prop="yijuanshuliang"
+                   :header-align="contents.tableAlign"
+		    label="已匹配数量">
+		     <template slot-scope="scope">
+                       {{scope.row.juanzengshuliang}}
+                     </template>
+                </el-table-column>
+                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
                     prop="shouzengzhanghao"
                    :header-align="contents.tableAlign"
-		    label="需求账号">
+		    label="需求用户">
 		     <template slot-scope="scope">
                        {{scope.row.shouzengzhanghao}}
                      </template>
-                </el-table-column> -->
+                </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="pipeizhuangtai"
+                    prop="juanzengzhanghao"
+                   :header-align="contents.tableAlign"
+		    label="捐赠用户">
+		     <template slot-scope="scope">
+                       {{scope.row.juanzengzhanghao}}
+                     </template>
+                </el-table-column>
+                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
+                    prop="pipeizhaungtai"
                    :header-align="contents.tableAlign"
 		    label="匹配状态">
 		     <template slot-scope="scope">
-                       {{scope.row.pipeizhuangtai}}
+                       {{scope.row.pipeizhaungtai}}
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
@@ -174,7 +205,7 @@
                        {{scope.row.pipeixiangqing}}
                      </template>
                 </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
+                <!-- <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
                     prop="shouzengxingming"
                    :header-align="contents.tableAlign"
 		    label="受赠姓名">
@@ -197,7 +228,7 @@
 		     <template slot-scope="scope">
                        {{scope.row.lianxifangshi}}
                      </template>
-                </el-table-column>
+                </el-table-column> -->
               <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
                   prop="shhf"
                  :header-align="contents.tableAlign"
@@ -579,8 +610,8 @@ export default {
           if(this.searchForm.sfsh!='' && this.searchForm.sfsh!=undefined){
             params['sfsh'] = this.searchForm.sfsh
           }
-          if(this.searchForm.dizhi!='' && this.searchForm.dizhi!=undefined){
-            params['dizhi'] = '%' + this.searchForm.dizhi + '%'
+          if(this.searchForm.biaoti!='' && this.searchForm.biaoti!=undefined){
+            params['biaoti'] = '%' + this.searchForm.biaoti + '%'
           }
           if(this.searchForm.sfsh!='' && this.searchForm.sfsh!=undefined){
             params['sfsh'] = this.searchForm.sfsh
@@ -682,6 +713,17 @@ export default {
     // 下载
     download(file){
       window.open(`${file}`)
+    },
+    // TODO 接口
+    startMatch(){
+       this.$http({
+        url: "xuqiuxinxi/match",
+        method: "get",
+        params: {}
+      }).then(({ data }) => {
+        this.getDataList();
+      });
+      
     },
     // 删除
     deleteHandler(id) {

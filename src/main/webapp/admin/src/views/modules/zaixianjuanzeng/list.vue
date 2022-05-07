@@ -9,11 +9,11 @@
                   <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.sfsh" placeholder="审核状态" clearable></el-input>
                   <el-input v-if="contents.inputIcon == 0" v-model="searchForm.sfsh" placeholder="审核状态" clearable></el-input>
                 </el-form-item> -->
-                <!-- <el-form-item :label="contents.inputTitle == 1 ? '捐赠姓名' : ''">
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.juanzengxingming" placeholder="捐赠姓名" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.juanzengxingming" placeholder="捐赠姓名" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.juanzengxingming" placeholder="捐赠姓名" clearable></el-input>
-                </el-form-item> -->
+                <el-form-item :label="contents.inputTitle == 1 ? '捐赠账号' : ''">
+                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.shouzengzhanghao" placeholder="捐赠账号" clearable></el-input>
+                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.shouzengzhanghao" placeholder="捐赠账号" clearable></el-input>
+                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.shouzengzhanghao" placeholder="捐赠账号" clearable></el-input>
+                </el-form-item>
                 <el-form-item :label="contents.inputTitle == 1 ? '匹配状态' : ''">
                   <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.pipeizhuangtai" placeholder="匹配状态" clearable></el-input>
                   <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.pipeizhuangtai" placeholder="匹配状态" clearable></el-input>
@@ -120,6 +120,14 @@
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
+                    prop="shouzengzhanghao"
+                   :header-align="contents.tableAlign"
+		    label="捐赠用户">
+		     <template slot-scope="scope">
+                       {{scope.row.shouzengzhanghao}}
+                     </template>
+                </el-table-column>
+                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
                     prop="juanzengshijian"
                    :header-align="contents.tableAlign"
 		    label="捐赠时间">
@@ -147,11 +155,11 @@
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="pipeizhuangtai"
+                    prop="pipeizhaungtai"
                    :header-align="contents.tableAlign"
 		    label="匹配状态">
 		     <template slot-scope="scope">
-                       {{scope.row.pipeizhuangtai}}
+                       {{scope.row.pipeizhaungtai}}
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
@@ -578,8 +586,8 @@ export default {
           if(this.searchForm.pipeizhaungtai!='' && this.searchForm.pipeizhaungtai!=undefined){
             params['pipeizhaungtai'] = '%' + this.searchForm.pipeizhaungtai + '%'
           }
-          if(this.searchForm.shouzengxingming!='' && this.searchForm.shouzengxingming!=undefined){
-            params['shouzengxingming'] = '%' + this.searchForm.shouzengxingming + '%'
+          if(this.searchForm.shouzengzhanghao!='' && this.searchForm.shouzengzhanghao!=undefined){
+            params['shouzengzhanghao'] = '%' + this.searchForm.shouzengzhanghao + '%'
           }
       this.$http({
         url: "zaixianjuanzeng/page",
