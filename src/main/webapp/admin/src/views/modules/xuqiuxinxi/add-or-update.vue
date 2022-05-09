@@ -132,9 +132,21 @@
                 placeholder="联系方式" readonly></el-input>
           </el-form-item>
         </div>
-      </el-col> -->
+      </el-col> 
+	      <el-col :span="12">
+        <el-form-item class="input" v-if="type!='info'"  label="捐赠账号" prop="juanzengzhanghao">
+          <el-input v-model="ruleForm.juanzengzhanghao" 
+              placeholder="捐赠账号" clearable  :readonly="ro.juanzengzhanghao"></el-input>
+        </el-form-item>
+        <div v-else>
+          <el-form-item class="input" label="捐赠账号" prop="juanzengzhanghao">
+              <el-input v-model="ruleForm.juanzengzhanghao" 
+                placeholder="捐赠账号" readonly></el-input>
+          </el-form-item>
+        </div>
+      </el-col>
       </el-row>
-          <!-- <el-row>
+         <el-row>
             <el-col :span="24">
               <el-form-item class="textarea" v-if="type!='info'" label="需求用途" prop="xuqiuyongtu">
                 <el-input
@@ -151,9 +163,9 @@
                 </el-form-item>
               </div>
             </el-col>
-          </el-row> -->
+          </el-row>
           <el-row>
-            <!-- <el-col :span="24">
+             <el-col :span="24">
               <el-form-item v-if="type!='info'"  label="详细说明" prop="xiangxishuoming">
                 <editor 
                     style="min-width: 200px; max-width: 600px;"

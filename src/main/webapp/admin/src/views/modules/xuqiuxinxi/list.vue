@@ -158,11 +158,11 @@
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="juanzengshuliang"
+                    prop="xuqiushuliang"
                    :header-align="contents.tableAlign"
 		    label="数量">
 		     <template slot-scope="scope">
-                       {{scope.row.juanzengshuliang}}
+                       {{scope.row.xuqiushuliang}}
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
@@ -170,7 +170,7 @@
                    :header-align="contents.tableAlign"
 		    label="已匹配数量">
 		     <template slot-scope="scope">
-                       {{scope.row.juanzengshuliang}}
+                       {{scope.row.yijuanshuliang}}
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
@@ -190,11 +190,11 @@
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="pipeizhaungtai"
+                    prop="pipeizhuangtai"
                    :header-align="contents.tableAlign"
 		    label="匹配状态">
 		     <template slot-scope="scope">
-                       {{scope.row.pipeizhaungtai}}
+                       {{scope.row.pipeizhuangtai}}
                      </template>
                 </el-table-column>
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
@@ -718,7 +718,7 @@ export default {
     startMatch(){
        this.$http({
         url: "xuqiuxinxi/match",
-        method: "get",
+        method: "post",
         params: {}
       }).then(({ data }) => {
         this.getDataList();

@@ -491,7 +491,7 @@ export default {
         type: "warning"
       }).then(() => {
         this.$http({
-          url: "xuqiuxinxi/update",
+          url: "zaixianjuanzeng/update",
           method: "post",
           data: this.shForm
         }).then(({ data }) => {
